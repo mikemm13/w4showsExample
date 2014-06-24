@@ -19,6 +19,15 @@
 
 @implementation CoreDataManager
 
++ (instancetype)sharedManager{ //Accessed with [CoreDataManager sharedManager]. Singleton (No recomendable)
+    static dispatch_once_t onceToken;
+    static CoreDataManager *sharedInstance;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[CoreDataManager alloc] initWithModelName:@"Shows"];
+    });
+    return sharedInstance;
+}
+
 - (instancetype) initWithModelName:(NSString *)modelName{
     self = [super init];
     if (self) {

@@ -24,7 +24,7 @@
 {
     self = [super initWithCoder:coder];
     if (self) {
-        _coreDataManager = [[CoreDataManager alloc] initWithModelName:@"Shows"];
+        _coreDataManager = [CoreDataManager sharedManager];
     }
     return self;
 }

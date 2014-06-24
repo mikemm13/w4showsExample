@@ -11,4 +11,7 @@
 
 @interface TvShowsTableViewController : UITableViewController
 
+- (void)like;
+- (void)dislike;
+
 @end

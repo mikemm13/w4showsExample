@@ -8,12 +8,17 @@
 
 #import "TvShowsTableViewController.h"
 #import "TVShow.h"
+#import "CoreDataManager.h"
+#import "UserEntity.h"
+#import "ShowDetailViewController.h"
 
 
 static NSString *savedShowsFileName = @"shows";
 
-@interface TvShowsTableViewController ()
+@interface TvShowsTableViewController () <ShowDetailDelegate>
 @property (strong, nonatomic) NSMutableArray *tvShows;
+@property (strong, nonatomic) CoreDataManager *coreDataManager;
+@property (strong, nonatomic) NSMutableArray *showsLikes;
 
 @end
 
@@ -35,6 +40,8 @@ static NSString *savedShowsFileName = @"shows";
             TVShow *showItem = [MTLJSONAdapter modelOfClass:[TVShow class] fromJSONDictionary:tvShowDictionary error:&parseError];
             [self.tvShows addObject:showItem];
         }
+        _coreDataManager = [CoreDataManager sharedManager];
+        
     }
     return self;
 }
@@ -44,21 +51,47 @@ static NSString *savedShowsFileName = @"shows";
 {
     [super viewDidLoad];
     
-    
+    NSString *userName = [self loggedUser].userName;
+    [self logFileAttributes];
+    self.showsLikes = [self loadShowsLikes:userName];
 //    [self loadShows];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)logFileAttributes{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+    
+    NSArray *contents = [fileManager contentsOfDirectoryAtPath:documentsPath error:nil];
+    for (NSString *path in contents) {
+        NSString *filePath = [documentsPath stringByAppendingPathComponent:path];
+        NSDictionary *attributes = [fileManager attributesOfItemAtPath:filePath error:nil];
+        NSLog(@"%@",attributes);
+    }
+    
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+    //Save info in plist
+    NSString *userName = [self loggedUser].userName;
+    [self saveShowsLikes:userName];
+}
+
+- (UserEntity *)loggedUser{
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([UserEntity class])];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"1=1"];
+    NSError *error;
+    NSArray *fetchResult=[self.coreDataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    return fetchResult.count?[fetchResult firstObject]:nil;
+}
+
+- (NSMutableArray *)showsLikes{
+    if (!_showsLikes) {
+        _showsLikes = [[NSMutableArray alloc] init];
+    }
+    return _showsLikes;
+}
+
 
 #pragma mark - Table view data source
 
@@ -148,45 +181,70 @@ static NSString *savedShowsFileName = @"shows";
     
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (IBAction)logoutPressed:(id)sender {
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"UserEntity"];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"1=1"];
+    NSError *error;
+    NSArray *fetchResult=[self.coreDataManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    UserEntity *user = fetchResult.count?[fetchResult firstObject]:nil;
+    [self removeLikesFile:user.userName];
+    [self.coreDataManager.managedObjectContext deleteObject:user];
+    NSError *errorDelete;
+    [self.coreDataManager.managedObjectContext save:&errorDelete];
+    if (!error) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void) removeLikesFile:(NSString *)userName
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *plistFilePath = [documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-likes.plist",userName]];
+    NSError *error = nil;
+    if (![fileManager removeItemAtPath:plistFilePath error:&error]) {
+        NSLog(@"[Error] %@ (%@)", error, plistFilePath);
+    }
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+- (NSMutableArray *)loadShowsLikes:(NSString *)userName
 {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *plistFilePath = [documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-likes.plist",userName]];
+    BOOL fileExists = [fileManager fileExistsAtPath:plistFilePath];
+    NSDictionary *showsLikes;
+    if (!fileExists) {
+        showsLikes = [[NSDictionary alloc] init];
+    } else{
+        showsLikes = [NSDictionary dictionaryWithContentsOfFile:plistFilePath];
+    }
+    
+    return [(NSArray *)[showsLikes objectForKey:@"likes"] mutableCopy];
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)saveShowsLikes:(NSString *)userName
 {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *plistFilePath = [documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-likes.plist",userName]];
+    NSDictionary *likes = @{@"likes": self.showsLikes};
+    [likes writeToFile:plistFilePath atomically:YES];
 }
-*/
 
-/*
+#pragma mark - Delegation
+
+- (void)like{
+    NSInteger selectedIndex = [self.tableView indexPathForSelectedRow].row;
+    [self.showsLikes addObject:[NSNumber numberWithInt:selectedIndex]];
+}
+
+- (void)dislike {
+    NSInteger selectedIndex = [self.tableView indexPathForSelectedRow].row;
+    [self.showsLikes addObject:[NSNumber numberWithInt:selectedIndex]];
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -194,7 +252,18 @@ static NSString *savedShowsFileName = @"shows";
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    ShowDetailViewController *detailVC = [segue destinationViewController];
+    NSInteger selectedIndex = [self.tableView indexPathForSelectedRow].row;
+    TVShow *selectedShow = self.tvShows[selectedIndex];
+    detailVC.title = selectedShow.showTitle;
+    detailVC.tvShow = self.tvShows[selectedIndex];
+    detailVC.delegate = self;
+    if ([self.showsLikes containsObject:[NSNumber numberWithInt:selectedIndex]]) {
+        detailVC.like = YES;
+    }
+    
 }
-*/
+
 
 @end
