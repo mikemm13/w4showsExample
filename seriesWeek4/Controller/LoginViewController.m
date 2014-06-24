@@ -42,6 +42,7 @@
         [self.navigationController pushViewController:tvShowsVC animated:YES];
         tvShowsVC.title = [NSString stringWithFormat:@"Shows(%@)",user.userName];
     }
+    NSLog(@"Last login: %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"lastLogin"]);
 }
 
 - (UserEntity *)loggedUser{
@@ -66,6 +67,8 @@
         [self.navigationController pushViewController:tvShowsVC animated:YES];
         tvShowsVC.title = [NSString stringWithFormat:@"Shows(%@)",self.userName.text];
     }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastLogin"];
 }
 
 
