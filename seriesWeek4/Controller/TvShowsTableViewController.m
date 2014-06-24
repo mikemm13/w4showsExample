@@ -9,6 +9,7 @@
 #import "TvShowsTableViewController.h"
 #import "TVShow.h"
 
+
 static NSString *savedShowsFileName = @"shows";
 
 @interface TvShowsTableViewController ()
@@ -18,27 +19,33 @@ static NSString *savedShowsFileName = @"shows";
 
 @implementation TvShowsTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
     if (self) {
-        // Custom initialization
+        _tvShows = [NSMutableArray array];
+        
+        NSURL *jsonURL = [NSURL URLWithString:@"http://ironhack4thweek.s3.amazonaws.com/shows.json"];
+        NSData *seriesData = [NSData dataWithContentsOfURL:jsonURL];
+        NSError *error;
+        
+        NSDictionary *JSONDictionary = [NSJSONSerialization JSONObjectWithData:seriesData options:NSJSONReadingMutableContainers error:&error];
+        
+        for (NSDictionary* tvShowDictionary in [JSONDictionary valueForKey:@"shows"]) {
+            NSError *parseError;
+            TVShow *showItem = [MTLJSONAdapter modelOfClass:[TVShow class] fromJSONDictionary:tvShowDictionary error:&parseError];
+            [self.tvShows addObject:showItem];
+        }
     }
     return self;
 }
 
-- (NSArray *)tvShows{
-    if (!_tvShows) {
-        _tvShows = [[NSMutableArray alloc] init];
-        [_tvShows addObject: [self randomShow]];
-    }
-    return _tvShows;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self loadShows];
+    
+    
+//    [self loadShows];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -127,7 +134,7 @@ static NSString *savedShowsFileName = @"shows";
         NSIndexPath* row2 = (NSIndexPath*)selectedShows[1];
         TVShow *show1 = self.tvShows[row1.row];
         TVShow *show2 = self.tvShows[row2.row];
-        [show1 isEqualToShow:show2];
+        [show1 isEqual:show2];
     }
 }
 - (IBAction)containsShow:(id)sender {

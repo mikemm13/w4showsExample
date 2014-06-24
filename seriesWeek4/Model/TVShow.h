@@ -7,14 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Mantle/Mantle.h>
 
-@interface TVShow : NSObject <NSCopying, NSCoding>
+@interface TVShow : MTLModel <MTLJSONSerializing>
 
 @property (copy, nonatomic) NSString *showId;
 @property (copy, nonatomic) NSString *showDescription;
 @property (copy, nonatomic) NSString *showTitle;
 @property (assign, nonatomic) CGFloat showRating;
 
-- (BOOL)isEqualToShow:(TVShow*) show;
++ (NSDictionary *)JSONKeyPathsByPropertyKey;
+
 
 @end
