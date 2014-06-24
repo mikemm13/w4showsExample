@@ -11,5 +11,6 @@
 @interface CoreDataManager : NSObject
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+- (instancetype) initWithModelName:(NSString *)modelName;
 
 @end

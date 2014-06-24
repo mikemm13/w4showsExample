@@ -5,43 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>2A7E9620-A2CA-43A5-AD03-D93FBD8B9980</string>
+	<string>08B61012-09B1-4F2E-B8EC-843E2FB0B887</string>
 	<key>IDESourceControlProjectName</key>
 	<string>seriesWeek4</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>C629FEE3-3256-423B-8D08-7BBD556E7A80</key>
-		<string>https://github.com/mikemm13/w4showsExample/trunk</string>
+		<key>61237661-0702-4C8F-82A4-51F161394465</key>
+		<string>https://github.com/mikemm13/w4showsExample.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>seriesWeek4.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>C629FEE3-3256-423B-8D08-7BBD556E7A80</key>
+		<key>61237661-0702-4C8F-82A4-51F161394465</key>
 		<string>..</string>
 	</dict>
-	<key>IDESourceControlProjectRepositoryRootDictionary</key>
-	<dict>
-		<key>C629FEE3-3256-423B-8D08-7BBD556E7A80</key>
-		<string>https://github.com/mikemm13/w4showsExample</string>
-	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/mikemm13/w4showsExample/trunk/seriesWeek4.xcworkspace</string>
+	<string>https://github.com/mikemm13/w4showsExample.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C629FEE3-3256-423B-8D08-7BBD556E7A80</string>
+	<string>61237661-0702-4C8F-82A4-51F161394465</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
-			<key>IDESourceControlRepositoryBranchesRelativeLocationKey</key>
-			<string>branches</string>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.subversion</string>
-			<key>IDESourceControlRepositoryTrunkRelativeLocationKey</key>
-			<string>trunk</string>
+			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C629FEE3-3256-423B-8D08-7BBD556E7A80</string>
+			<string>61237661-0702-4C8F-82A4-51F161394465</string>
 			<key>IDESourceControlWCCName</key>
 			<string>w4showsExample</string>
 		</dict>
