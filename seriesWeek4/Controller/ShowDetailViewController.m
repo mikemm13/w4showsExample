@@ -9,8 +9,9 @@
 #import "ShowDetailViewController.h"
 #import "TvShowsTableViewController.h"
 #import "LikeBarButtonItem.h"
+#import "UIAlertView+LikeAlertView.h"
 
-@interface ShowDetailViewController ()
+@interface ShowDetailViewController ()<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *showDescription;
 @property (strong, nonatomic) LikeBarButtonItem *likeBarButton;
 
@@ -26,8 +27,10 @@
     self.title = self.tvShow.showTitle;
     self.showDescription.text = self.tvShow.showDescription;
     
+    //self retenía al botón, el botón retenía al bloque y el bloque retenía de nuevo a self --> Retain Cycle
+    __weak typeof (self) weakSelf = self;
     self.likeBarButton = [[LikeBarButtonItem alloc] initWithTitle:@"Like!" block:^{
-        [self pressedLikeButton];
+        [weakSelf pressedLikeButton];
     }];
     
     self.navigationItem.rightBarButtonItem = self.likeBarButton;
@@ -39,19 +42,24 @@
     
 }
 
-
 - (void)pressedLikeButton {
-    if ([self.likeBarButton.title isEqualToString:@"Like!"]) {
-        TvShowsTableViewController *showsVC = self.delegate;
-        [showsVC like];
-        [self.likeBarButton setTitle:@"Not like!"];
-    }
-    else {
-        TvShowsTableViewController *showsVC = self.delegate;
-        [showsVC dislike];
-        [self.likeBarButton setTitle:@"Like!"];
-    }
+    UIAlertView *likeAlertView = [[UIAlertView alloc] initWithTitle:@"Like" message:@"Are you sure you want to change the like state of this show?" dismissCallback:^{
+        if ([self.likeBarButton.title isEqualToString:@"Like!"]) {
+            TvShowsTableViewController *showsVC = self.delegate;
+            [showsVC like];
+            [self.likeBarButton setTitle:@"Not like!"];
+        }
+        else {
+            TvShowsTableViewController *showsVC = self.delegate;
+            [showsVC dislike];
+            [self.likeBarButton setTitle:@"Like!"];
+        }
+        
+    } cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
+    [likeAlertView show];
     
 }
+
+
 
 @end
