@@ -63,9 +63,9 @@
     NSError *error;
     [self.coreDataManager.managedObjectContext save:&error];
     if (!error) {
-        TvShowsTableViewController *tvShowsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TvShowsVC"];
-        [self.navigationController pushViewController:tvShowsVC animated:YES];
-        tvShowsVC.title = [NSString stringWithFormat:@"Shows(%@)",self.userName.text];
+//        TvShowsTableViewController *tvShowsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TvShowsVC"];
+//        [self.navigationController pushViewController:tvShowsVC animated:YES];
+        
     }
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastLogin"];
@@ -84,7 +84,8 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    
+    TvShowsTableViewController *tvShowsVC = [segue destinationViewController];
+    tvShowsVC.title = [NSString stringWithFormat:@"Shows(%@)",self.userName.text];
 }
 
 

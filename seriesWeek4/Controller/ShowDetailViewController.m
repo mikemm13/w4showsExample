@@ -8,10 +8,11 @@
 
 #import "ShowDetailViewController.h"
 #import "TvShowsTableViewController.h"
+#import "LikeBarButtonItem.h"
 
 @interface ShowDetailViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *showDescription;
-@property (weak, nonatomic) IBOutlet UIButton *likeButton;
+@property (strong, nonatomic) LikeBarButtonItem *likeBarButton;
 
 @end
 
@@ -24,25 +25,31 @@
     // Do any additional setup after loading the view.
     self.title = self.tvShow.showTitle;
     self.showDescription.text = self.tvShow.showDescription;
+    
+    self.likeBarButton = [[LikeBarButtonItem alloc] initWithTitle:@"Like!" block:^{
+        [self pressedLikeButton];
+    }];
+    
+    self.navigationItem.rightBarButtonItem = self.likeBarButton;
     if (!self.like) {
-        [self.likeButton setTitle:@"Like!" forState:UIControlStateNormal];
+        [self.likeBarButton setTitle:@"Like!" ];
     } else {
-        [self.likeButton setTitle:@"Not like!" forState:UIControlStateNormal];
+        [self.likeBarButton setTitle:@"Not like!" ];
     }
     
 }
 
 
-- (IBAction)pressedLikeButton:(id)sender {
-    if ([self.likeButton.titleLabel.text isEqualToString:@"Like!"]) {
+- (void)pressedLikeButton {
+    if ([self.likeBarButton.title isEqualToString:@"Like!"]) {
         TvShowsTableViewController *showsVC = self.delegate;
         [showsVC like];
-        [self.likeButton setTitle:@"Not like!" forState:UIControlStateNormal];
+        [self.likeBarButton setTitle:@"Not like!"];
     }
     else {
         TvShowsTableViewController *showsVC = self.delegate;
         [showsVC dislike];
-        [self.likeButton setTitle:@"Like!" forState:UIControlStateNormal];
+        [self.likeBarButton setTitle:@"Like!"];
     }
     
 }

@@ -13,6 +13,7 @@
 		491463221959B13B008FC032 /* ShowDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 491463211959B13B008FC032 /* ShowDetailViewController.m */; };
 		491884551959688A00F02CCA /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 491884541959688A00F02CCA /* CoreDataManager.m */; };
 		491884571959699400F02CCA /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 491884561959699400F02CCA /* CoreData.framework */; };
+		49B530B0195ABA0B003F49C4 /* LikeBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B530AF195ABA0B003F49C4 /* LikeBarButtonItem.m */; };
 		49F6DCBC19581BCC004869AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F6DCBB19581BCC004869AA /* Foundation.framework */; };
 		49F6DCBE19581BCC004869AA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F6DCBD19581BCC004869AA /* CoreGraphics.framework */; };
 		49F6DCC019581BCC004869AA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F6DCBF19581BCC004869AA /* UIKit.framework */; };
@@ -53,6 +54,8 @@
 		491884531959688A00F02CCA /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		491884541959688A00F02CCA /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		491884561959699400F02CCA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		49B530AE195ABA0B003F49C4 /* LikeBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikeBarButtonItem.h; sourceTree = "<group>"; };
+		49B530AF195ABA0B003F49C4 /* LikeBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikeBarButtonItem.m; sourceTree = "<group>"; };
 		49F6DCB819581BCC004869AA /* seriesWeek4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = seriesWeek4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F6DCBB19581BCC004869AA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		49F6DCBD19581BCC004869AA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -115,6 +118,15 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
+		49B530B1195ABA13003F49C4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				49B530AE195ABA0B003F49C4 /* LikeBarButtonItem.h */,
+				49B530AF195ABA0B003F49C4 /* LikeBarButtonItem.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		49F6DCAF19581BCC004869AA = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +172,7 @@
 				49F6DCC219581BCC004869AA /* Supporting Files */,
 				491884531959688A00F02CCA /* CoreDataManager.h */,
 				491884541959688A00F02CCA /* CoreDataManager.m */,
+				49B530B1195ABA13003F49C4 /* View */,
 			);
 			path = seriesWeek4;
 			sourceTree = "<group>";
@@ -357,6 +370,7 @@
 				49F6DCCC19581BCC004869AA /* AppDelegate.m in Sources */,
 				49F6DCC819581BCC004869AA /* main.m in Sources */,
 				4914631819596C01008FC032 /* Shows.xcdatamodeld in Sources */,
+				49B530B0195ABA0B003F49C4 /* LikeBarButtonItem.m in Sources */,
 				49F6DCFD19581CC5004869AA /* Movie.m in Sources */,
 				4914631E1959757D008FC032 /* UserEntity.m in Sources */,
 				49F6DCF919581CAC004869AA /* TVShow.m in Sources */,

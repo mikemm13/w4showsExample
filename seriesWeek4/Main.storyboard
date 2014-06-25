@@ -108,9 +108,6 @@
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="pressedLikeButton:" destination="wc0-hc-Xfs" eventType="touchUpInside" id="L3g-qV-5Jn"/>
-                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4J-VQ-5ve">
                                 <rect key="frame" x="40" y="102" width="240" height="255"/>
@@ -125,7 +122,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="C81-ll-gzI"/>
                     <connections>
-                        <outlet property="likeButton" destination="j3D-hm-siX" id="1Rh-rG-lWX"/>
                         <outlet property="showDescription" destination="M4J-VQ-5ve" id="p7c-1p-h69"/>
                     </connections>
                 </viewController>
