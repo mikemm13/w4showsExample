@@ -15,6 +15,8 @@
 		491884571959699400F02CCA /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 491884561959699400F02CCA /* CoreData.framework */; };
 		49B530B0195ABA0B003F49C4 /* LikeBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B530AF195ABA0B003F49C4 /* LikeBarButtonItem.m */; };
 		49B530B4195ADA77003F49C4 /* UIAlertView+LikeAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B530B3195ADA77003F49C4 /* UIAlertView+LikeAlertView.m */; };
+		49B530B8195B101F003F49C4 /* ShowsProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B530B7195B101F003F49C4 /* ShowsProvider.m */; };
+		49B530BB195B1029003F49C4 /* RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B530BA195B1029003F49C4 /* RequestManager.m */; };
 		49F6DCBC19581BCC004869AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F6DCBB19581BCC004869AA /* Foundation.framework */; };
 		49F6DCBE19581BCC004869AA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F6DCBD19581BCC004869AA /* CoreGraphics.framework */; };
 		49F6DCC019581BCC004869AA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F6DCBF19581BCC004869AA /* UIKit.framework */; };
@@ -59,6 +61,10 @@
 		49B530AF195ABA0B003F49C4 /* LikeBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikeBarButtonItem.m; sourceTree = "<group>"; };
 		49B530B2195ADA77003F49C4 /* UIAlertView+LikeAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+LikeAlertView.h"; sourceTree = "<group>"; };
 		49B530B3195ADA77003F49C4 /* UIAlertView+LikeAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+LikeAlertView.m"; sourceTree = "<group>"; };
+		49B530B6195B101F003F49C4 /* ShowsProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowsProvider.h; sourceTree = "<group>"; };
+		49B530B7195B101F003F49C4 /* ShowsProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowsProvider.m; sourceTree = "<group>"; };
+		49B530B9195B1029003F49C4 /* RequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestManager.h; sourceTree = "<group>"; };
+		49B530BA195B1029003F49C4 /* RequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestManager.m; sourceTree = "<group>"; };
 		49F6DCB819581BCC004869AA /* seriesWeek4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = seriesWeek4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F6DCBB19581BCC004869AA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		49F6DCBD19581BCC004869AA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -143,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				49F6DCC119581BCC004869AA /* seriesWeek4 */,
+				49F6DCC219581BCC004869AA /* Supporting Files */,
 				49F6DCE319581BCC004869AA /* seriesWeek4Tests */,
 				49F6DCBA19581BCC004869AA /* Frameworks */,
 				49F6DCB919581BCC004869AA /* Products */,
@@ -181,11 +188,14 @@
 				49F6DCFA19581CB1004869AA /* Model */,
 				49F6DCF619581C5B004869AA /* Controller */,
 				49F6DCD619581BCC004869AA /* Images.xcassets */,
-				49F6DCC219581BCC004869AA /* Supporting Files */,
 				491884531959688A00F02CCA /* CoreDataManager.h */,
 				491884541959688A00F02CCA /* CoreDataManager.m */,
 				49B530B1195ABA13003F49C4 /* View */,
 				49B530B5195ADA83003F49C4 /* Categories */,
+				49B530B6195B101F003F49C4 /* ShowsProvider.h */,
+				49B530B7195B101F003F49C4 /* ShowsProvider.m */,
+				49B530B9195B1029003F49C4 /* RequestManager.h */,
+				49B530BA195B1029003F49C4 /* RequestManager.m */,
 			);
 			path = seriesWeek4;
 			sourceTree = "<group>";
@@ -198,7 +208,8 @@
 				49F6DCC719581BCC004869AA /* main.m */,
 				49F6DCC919581BCC004869AA /* seriesWeek4-Prefix.pch */,
 			);
-			path = "Supporting Files";
+			name = "Supporting Files";
+			path = "seriesWeek4/Supporting Files";
 			sourceTree = "<group>";
 		};
 		49F6DCE319581BCC004869AA /* seriesWeek4Tests */ = {
@@ -380,6 +391,7 @@
 				491463221959B13B008FC032 /* ShowDetailViewController.m in Sources */,
 				4914631B19596ECA008FC032 /* LoginViewController.m in Sources */,
 				49B530B4195ADA77003F49C4 /* UIAlertView+LikeAlertView.m in Sources */,
+				49B530BB195B1029003F49C4 /* RequestManager.m in Sources */,
 				491884551959688A00F02CCA /* CoreDataManager.m in Sources */,
 				49F6DCCC19581BCC004869AA /* AppDelegate.m in Sources */,
 				49F6DCC819581BCC004869AA /* main.m in Sources */,
@@ -388,6 +400,7 @@
 				49F6DCFD19581CC5004869AA /* Movie.m in Sources */,
 				4914631E1959757D008FC032 /* UserEntity.m in Sources */,
 				49F6DCF919581CAC004869AA /* TVShow.m in Sources */,
+				49B530B8195B101F003F49C4 /* ShowsProvider.m in Sources */,
 				49F6DCF519581C2C004869AA /* TvShowsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

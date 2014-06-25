@@ -11,6 +11,7 @@
 #import "CoreDataManager.h"
 #import "UserEntity.h"
 #import "ShowDetailViewController.h"
+#import "ShowsProvider.h"
 
 
 static NSString *savedShowsFileName = @"shows";
@@ -24,22 +25,23 @@ static NSString *savedShowsFileName = @"shows";
 
 @implementation TvShowsTableViewController
 
+- (void)loadDataFromAFN {
+    ShowsProvider *showsProvider = [[ShowsProvider alloc] init];
+    [showsProvider getListOfShowsWithSuccessBlock:^(NSMutableArray *shows) {
+        self.tvShows = shows;
+        [self.tableView reloadData];
+    } errorBlock:^(NSError * error) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error in request" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
+        [alertView show];
+    }];
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self) {
+        
         _tvShows = [NSMutableArray array];
         
-        NSURL *jsonURL = [NSURL URLWithString:@"http://ironhack4thweek.s3.amazonaws.com/shows.json"];
-        NSData *seriesData = [NSData dataWithContentsOfURL:jsonURL];
-        NSError *error;
-        
-        NSDictionary *JSONDictionary = [NSJSONSerialization JSONObjectWithData:seriesData options:NSJSONReadingMutableContainers error:&error];
-        
-        for (NSDictionary* tvShowDictionary in [JSONDictionary valueForKey:@"shows"]) {
-            NSError *parseError;
-            TVShow *showItem = [MTLJSONAdapter modelOfClass:[TVShow class] fromJSONDictionary:tvShowDictionary error:&parseError];
-            [self.tvShows addObject:showItem];
-        }
         _coreDataManager = [CoreDataManager sharedManager];
         
     }
@@ -54,6 +56,7 @@ static NSString *savedShowsFileName = @"shows";
     NSString *userName = [self loggedUser].userName;
     [self logFileAttributes];
     self.showsLikes = [self loadShowsLikes:userName];
+    [self loadDataFromAFN];
 //    [self loadShows];
     
 }

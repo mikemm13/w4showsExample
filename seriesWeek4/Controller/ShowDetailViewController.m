@@ -28,9 +28,12 @@
     self.showDescription.text = self.tvShow.showDescription;
     
     //self retenía al botón, el botón retenía al bloque y el bloque retenía de nuevo a self --> Retain Cycle
-    __weak typeof (self) weakSelf = self;
+//    __weak typeof (self) weakSelf = self;
+    @weakify(self);
     self.likeBarButton = [[LikeBarButtonItem alloc] initWithTitle:@"Like!" block:^{
-        [weakSelf pressedLikeButton];
+//        [weakSelf pressedLikeButton];
+        @strongify(self);
+        [self pressedLikeButton];
     }];
     
     self.navigationItem.rightBarButtonItem = self.likeBarButton;
@@ -60,6 +63,9 @@
     
 }
 
+- (void)dealloc{
+    //Con un breakpoint aquí vemos si hay un retain cycle
+}
 
 
 @end
