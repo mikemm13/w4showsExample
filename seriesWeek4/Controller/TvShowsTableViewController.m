@@ -20,14 +20,16 @@ static NSString *savedShowsFileName = @"shows";
 @property (strong, nonatomic) NSMutableArray *tvShows;
 @property (strong, nonatomic) CoreDataManager *coreDataManager;
 @property (strong, nonatomic) NSMutableArray *showsLikes;
+@property (strong, nonatomic) ShowsProvider *showsProvider;
 
 @end
 
 @implementation TvShowsTableViewController
 
 - (void)loadDataFromAFN {
-    ShowsProvider *showsProvider = [[ShowsProvider alloc] init];
-    [showsProvider getListOfShowsWithSuccessBlock:^(NSMutableArray *shows) {
+    @weakify(self); //No es necesario aquí, no se produce un retain cycle ya que el success block no es retenido en la función de showsProvider. Pero si lo tenemos es inocuo.
+    [self.showsProvider getListOfShowsWithSuccessBlock:^(NSMutableArray *shows) {
+        @strongify(self);
         self.tvShows = shows;
         [self.tableView reloadData];
     } errorBlock:^(NSError * error) {
@@ -41,7 +43,7 @@ static NSString *savedShowsFileName = @"shows";
     if (self) {
         
         _tvShows = [NSMutableArray array];
-        
+        _showsProvider = [[ShowsProvider alloc] init];
         _coreDataManager = [CoreDataManager sharedManager];
         
     }
