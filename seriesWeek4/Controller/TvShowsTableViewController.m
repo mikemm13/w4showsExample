@@ -12,6 +12,7 @@
 #import "UserEntity.h"
 #import "ShowDetailViewController.h"
 #import "ShowsProvider.h"
+#import "UIImageView+Shows.h"
 
 
 static NSString *savedShowsFileName = @"shows";
@@ -31,7 +32,10 @@ static NSString *savedShowsFileName = @"shows";
     [self.showsProvider getListOfShowsWithSuccessBlock:^(NSMutableArray *shows) {
         @strongify(self);
         self.tvShows = shows;
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @strongify(self);
+            [self.tableView reloadData];
+        });
     } errorBlock:^(NSError * error) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error in request" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
         [alertView show];
@@ -120,7 +124,14 @@ static NSString *savedShowsFileName = @"shows";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"showCell" forIndexPath:indexPath];
     TVShow *show = self.tvShows[indexPath.row];
     cell.textLabel.text = show.showTitle;
-    // Configure the cell...
+    
+    // Configure the cell... Mejor hacerlo con cell custom ya que la carga de imagen no va bien al principio.
+    cell.imageView.image = [UIImage imageNamed:@"first"];
+    ///main thread
+    [cell.imageView setImageWithURL:[NSURL URLWithString:show.posterURL] completion:^(BOOL success) {
+        
+    }];
+    
     
     return cell;
 }

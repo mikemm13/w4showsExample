@@ -15,6 +15,7 @@
 @property (copy, nonatomic) NSString *showDescription;
 @property (copy, nonatomic) NSString *showTitle;
 @property (assign, nonatomic) CGFloat showRating;
+@property (copy, nonatomic) NSString *posterURL;
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey;
 

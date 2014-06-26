@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4902E53A195C11AB005036EE /* UIImageView+Shows.m in Sources */ = {isa = PBXBuildFile; fileRef = 4902E539195C11AB005036EE /* UIImageView+Shows.m */; };
 		4914631819596C01008FC032 /* Shows.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4914631619596C01008FC032 /* Shows.xcdatamodeld */; };
 		4914631B19596ECA008FC032 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914631A19596ECA008FC032 /* LoginViewController.m */; };
 		4914631E1959757D008FC032 /* UserEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914631D1959757D008FC032 /* UserEntity.m */; };
@@ -47,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4902E538195C11AB005036EE /* UIImageView+Shows.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Shows.h"; sourceTree = "<group>"; };
+		4902E539195C11AB005036EE /* UIImageView+Shows.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Shows.m"; sourceTree = "<group>"; };
 		4914631719596C01008FC032 /* Shows.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shows.xcdatamodel; sourceTree = "<group>"; };
 		4914631919596ECA008FC032 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		4914631A19596ECA008FC032 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -141,6 +144,8 @@
 			children = (
 				49B530B2195ADA77003F49C4 /* UIAlertView+LikeAlertView.h */,
 				49B530B3195ADA77003F49C4 /* UIAlertView+LikeAlertView.m */,
+				4902E538195C11AB005036EE /* UIImageView+Shows.h */,
+				4902E539195C11AB005036EE /* UIImageView+Shows.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -393,6 +398,7 @@
 				49B530B4195ADA77003F49C4 /* UIAlertView+LikeAlertView.m in Sources */,
 				49B530BB195B1029003F49C4 /* RequestManager.m in Sources */,
 				491884551959688A00F02CCA /* CoreDataManager.m in Sources */,
+				4902E53A195C11AB005036EE /* UIImageView+Shows.m in Sources */,
 				49F6DCCC19581BCC004869AA /* AppDelegate.m in Sources */,
 				49F6DCC819581BCC004869AA /* main.m in Sources */,
 				4914631819596C01008FC032 /* Shows.xcdatamodeld in Sources */,

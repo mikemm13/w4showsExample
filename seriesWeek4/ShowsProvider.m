@@ -15,14 +15,18 @@
 - (void)getListOfShowsWithSuccessBlock:(RequestManagerSuccess)successBlock errorBlock:(RequestManagerError)errorBlock{
 
     RequestManager *requestManager = [[RequestManager alloc] init];
+    
     [requestManager GET:@"shows.json" parameters:nil successBlock:^(NSDictionary *data) {
-        NSMutableArray *shows = [[NSMutableArray alloc] init];
-        for (NSDictionary* tvShowDictionary in [data valueForKey:@"shows"]) {
-            NSError *parseError;
-            TVShow *showItem = [MTLJSONAdapter modelOfClass:[TVShow class] fromJSONDictionary:tvShowDictionary error:&parseError];
-            [shows addObject:showItem];
-        }
-        successBlock(shows);
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            NSMutableArray *shows = [[NSMutableArray alloc] init];
+            for (NSDictionary* tvShowDictionary in [data valueForKey:@"shows"]) {
+                NSError *parseError;
+                TVShow *showItem = [MTLJSONAdapter modelOfClass:[TVShow class] fromJSONDictionary:tvShowDictionary error:&parseError];
+                [shows addObject:showItem];
+            }
+            successBlock(shows);
+        });
+        
     } errorBlock:^(NSError * error) {
         errorBlock(error);
     }];

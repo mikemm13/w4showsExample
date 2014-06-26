@@ -10,10 +10,12 @@
 #import "TvShowsTableViewController.h"
 #import "LikeBarButtonItem.h"
 #import "UIAlertView+LikeAlertView.h"
+#import "UIImageView+Shows.h"
 
 @interface ShowDetailViewController ()<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *showDescription;
 @property (strong, nonatomic) LikeBarButtonItem *likeBarButton;
+@property (weak, nonatomic) IBOutlet UIImageView *showImage;
 
 @end
 
@@ -26,6 +28,12 @@
     // Do any additional setup after loading the view.
     self.title = self.tvShow.showTitle;
     self.showDescription.text = self.tvShow.showDescription;
+    
+    [self.showImage setImageWithURL:[NSURL URLWithString:self.tvShow.posterURL] completion:^(BOOL success) {
+        
+    }];
+
+
     
     //self retenía al botón, el botón retenía al bloque y el bloque retenía de nuevo a self --> Retain Cycle
 //    __weak typeof (self) weakSelf = self;
